@@ -137,9 +137,7 @@
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="packages.config" />
-    <None Include="Properties\PublishProfiles\Local IIS.pubxml" />
     <Content Include="HostedWebApp.html" />
-    <None Include="Properties\PublishProfiles\uwpsignalr.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
@@ -150,7 +148,6 @@
     <Content Include="Scripts\json2.js" />
     <Content Include="Scripts\json2.min.js" />
     <Content Include="Scripts\uwp.winapi.js" />
-    <None Include="Properties\PublishProfiles\Localhost.pubxml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
