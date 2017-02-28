@@ -14,16 +14,19 @@
     <Resource Language="x-generate" />
   </Resources>
   <Applications>
-    <Application Id="App" StartPage="http://localhost:31234/HostedWebApp.html">
-      <uap:VisualElements DisplayName="ASP.NET SignalR + Westminster" Description="UWP.HostedWebApp" BackgroundColor="transparent" Square150x150Logo="images\Square150x150Logo.png" Square44x44Logo="images\Square44x44Logo.png">
+    <Application Id="App" StartPage="http://uwpwestminster.azurewebsites.net/index.html">
+      <uap:VisualElements DisplayName="Kaptan" Description="UWP.HostedWebApp" BackgroundColor="transparent" Square150x150Logo="images\Square150x150Logo.png" Square44x44Logo="images\Square44x44Logo.png">
         <uap:DefaultTile Wide310x150Logo="images\Wide310x150Logo.png">
         </uap:DefaultTile>
-        <uap:SplashScreen Image="images\splashscreen.png" />
       </uap:VisualElements>
       <uap:ApplicationContentUriRules>
         <uap:Rule Match="http://localhost:31234/HostedWebApp.html" Type="include" WindowsRuntimeAccess="all" />
         <uap:Rule Match="http://127.0.0.1/" Type="include" WindowsRuntimeAccess="all" />
         <uap:Rule Match="http://127.*.0.1/" Type="include" WindowsRuntimeAccess="all" />
+        <uap:Rule Match="http://uwpwestminster.azurewebsites.net/index.html" Type="include" WindowsRuntimeAccess="all" />
+        <uap:Rule Match="http://localhost:31234/index.html" Type="include" WindowsRuntimeAccess="all" />
+        <uap:Rule Match="https://patrickweb.blob.core.windows.net/mycontainer" Type="include" WindowsRuntimeAccess="all" />
+        <uap:Rule Match="http://uwpwestminster.azurewebsites.net/Assets/Images/*" Type="include" WindowsRuntimeAccess="all" />
       </uap:ApplicationContentUriRules>
     </Application>
   </Applications>

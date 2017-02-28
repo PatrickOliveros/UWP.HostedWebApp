@@ -1,0 +1,352 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <meta http-equiv="cache-control" content="max-age=0" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+    <meta http-equiv="pragma" content="no-cache" />
+
+    <title>Kaptan</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="Content/hostedApp.css" rel="stylesheet" />
+
+    <!-- Custom Fonts -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+
+    <!-- Theme CSS -->
+    <link href="Assets/grayscale.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <style type="text/css">
+        .containerx {
+            border: thick solid #808080;
+            padding: 20px;
+            margin: 20px;
+            overflow: auto;
+            height: 300px;
+        }
+
+        .notification {
+            background-color: #0080ff;
+            border: thick solid #808080;
+            padding: 20px;
+            margin: 20px;
+            position: fixed;
+            bottom: 1em;
+            right: 1em;
+            font-size: 20px;
+        }
+
+        #discussion {
+            font-size: 20px;
+            list-style-type: none;
+            text-align: left;
+        }
+    </style>
+
+</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top" id="topnav">
+                    <i class="fa fa-play-circle"></i> <span class="light">ASP.NET +</span> Project Westminster
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#about">About</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Intro Header -->
+<header class="intro">
+    <div class="intro-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h1 class="brand-heading">Let's Get Started!</h1>
+                    <p class="intro-text">Please enter your name below</p>
+
+                    <div id="initializeSession">
+                        <input type="text" class="webAppText" id="tbChat" />&nbsp;<br /><br />
+                        <input type="button" id="btnGetStarted" class="chatStart" value="Enable Session" />
+                    </div>
+
+                    <p id="blkOptions">
+                        <span id="spSupported">You may select an array of choices of things you can do with Windows 10 APIs.</span>
+                        <span id="spUnsupported">The current view isn't a hosted web application. No Win10 APIs can be used.</span>
+                        <br /><br />
+                        <a class="btn btn-default btn-lg" id="gWebNotification">Web Notification</a>
+                        <a class="btn btn-default btn-lg page-scroll" href="#applicationToast">Application Toast</a>
+                        <a class="btn btn-default btn-lg page-scroll" href="#defaultToast" id="phdefaultToast">Default Toast</a>
+                        <a class="btn btn-default btn-lg page-scroll" href="#textYesNoToast" id="phtextyesnoToast">Custom Toast - Text + Yes/No</a>
+                        <a class="btn btn-default btn-lg page-scroll" href="#selectionToast" id="phselectionToast">Custom Toast - Dropdown</a>
+                        <a class="btn btn-default btn-lg page-scroll" href="#selectionJsonToast" id="phjsonToast">Custom Toast - Dropdown (Json)</a>
+                        <a class="btn btn-default btn-lg page-scroll" href="#photoToast" id="phphotoToast">Photo Toast</a>
+                        <a class="btn btn-default btn-lg page-scroll" href="#cameraApi" id="phcameraToast">Camera</a>
+                        <a class="btn btn-default btn-lg page-scroll" href="#contactApi" id="phcontactToast">Contact Picker</a>
+                    </p>
+
+                    <div class="containerx">
+                        <input type="hidden" id="displayname" />
+                        <input type="hidden" id="photourl" />
+                        <input type="hidden" id="photofilepath" />
+                        
+                        <!-- Placeholders for contact sharing -->
+                        <input type="hidden" id="conTrigger" />
+                        <input type="hidden" id="conSharer" />
+                        <input type="hidden" id="conInfo" />
+                        <input type="hidden" id="conType" />
+                        <input type="hidden" id="conName" />
+
+                        <ul id="discussion"></ul>
+                    </div>
+
+                    <p>
+                        <a href="#about" class="btn btn-circle page-scroll">
+                            <i class="fa fa-angle-double-down animated"></i>
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+    
+
+
+<!-- About Section -->
+    <section id="about" class="container content-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2>About This Project</h2>
+                <p>
+                    This project is a proof of concept where ASP.NET SignalR can be used to perform various responses to actions in certain line of business (LOB)
+                    applications using a Hosted Web Application with Windows 10. More information can be found in this <a href="https://blogs.windows.com/buildingapps/2015/07/06/project-westminster-in-a-nutshell/#FKHwZ0c1vVjhftaw.97"> link</a>.
+                </p>
+                <p style="font-size: small">
+                    <a href="http://startbootstrap.com/template-overviews/grayscale/">Grayscale</a> is a free Bootstrap 3 theme created by Start Bootstrap. The theme is open source, and you can use it for any purpose, personal or commercial.
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    
+    <!-- Application Toast Section-->
+    <section id="applicationToast" class="container content-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2>Application Toast</h2>
+                <p>
+                    This button will trigger a web notification in a browser, otherwise a toast if inside a hosted application. The toast simulates as if a normal business logic takes place. The toast 
+                    will display a fictional business object (request number) and the current status called from an ASP.NET Web API endpoint.<br /><br />
+                    Activation of this toast will just append the business object information in the status box. 
+                </p>
+                <p style="font-size: small">
+                    <a class="btn btn-default btn-lg" id="gAppToast">Try Application Toast</a><br />
+                    <a class="btn btn-defaultx btn-lg page-scroll" href="#page-top">Top</a>
+
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <div id="hostedSections">
+        <!-- Default Section-->
+        <section id="defaultToast" class="container content-section text-center">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <h2>Default Toast</h2>
+                    <p>
+                        Just a standard toast with image icon. 
+                    </p>
+                    <p style="font-size: small">
+                        <a class="btn btn-default btn-lg" id="gDefaultToast">Try Default Toast</a><br />
+                        <a class="btn btn-defaultx btn-lg page-scroll" href="#page-top">Top</a>
+
+                    </p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Selection Section-->
+        <section id="selectionToast" class="container content-section text-center">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <h2>Custom Toast - Dropdown</h2>
+                    <p>
+                        This toast displays a standard hard-coded selection values. Activation of this toast will append the action and value of the selected item.
+                    </p>
+                    <p style="font-size: small">
+                        <a class="btn btn-default btn-lg" id="gCustomToastDropDown">Try Selection Toast</a><br />
+                        <a class="btn btn-defaultx btn-lg page-scroll" href="#page-top">Top</a>
+
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Custom (Text + Options) Section-->
+        <section id="textYesNoToast" class="container content-section text-center">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <h2>Custom (Text + Options) Toast</h2>
+                    <p>
+                        This toast allows the user to input text and submit the results as desired. The values of both text and command shall be displayed in the status box.
+                    </p>
+                    <p style="font-size: small">
+                        <a class="btn btn-default btn-lg" id="gCustomToastTextYesNo">Try Custom (Text + Options) Toast</a><br />
+                        <a class="btn btn-defaultx btn-lg page-scroll" href="#page-top">Top</a>
+
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Json Section-->
+        <section id="selectionJsonToast" class="container content-section text-center">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <h2>Selection from JSON Result Toast</h2>
+                    <p>
+                        This toast consumes an ASP.NET Web API service that returns a list of random employees from which you wish to send notification to. This Web API utilizes <a href="https://www.nuget.org/packages/GenFu/">GenFu</a>
+                        to generate realistic data.
+                    </p>
+                    <p style="font-size: small">
+                        <a class="btn btn-default btn-lg" id="gCustomToastDropDownJson">Try Json Selection Toast</a><br />
+                        <a class="btn btn-defaultx btn-lg page-scroll" href="#page-top">Top</a>
+
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Photo Toast Section-->
+        <section id="photoToast" class="container content-section text-center">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <h2>Photo Toast</h2>
+                    <p>
+                        This button will trigger a toast with a hardcoded image Url.
+                    </p>
+                    <p style="font-size: small">
+                        <a class="btn btn-default btn-lg" id="gPhotoToast">Try Photo Toast</a><br />
+                        <a class="btn btn-defaultx btn-lg page-scroll" href="#page-top">Top</a>
+
+                    </p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Camera Section-->
+        <section id="cameraApi" class="container content-section text-center">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <h2>Camera</h2>
+                    <p>
+                        This button will open the camera functionality of the device. If allowed, the photo will be appended to the display box on top.
+                    </p>
+                    <p style="font-size: small">
+                        <a class="btn btn-default btn-lg" id="gCamera">Launch Camera</a><br />
+                        <a class="btn btn-defaultx btn-lg page-scroll" href="#page-top">Top</a>
+
+                    </p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Contact Section-->
+        <section id="contactApi" class="container content-section text-center">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <h2>Contact Picker</h2>
+                    <p>
+                        This button will allow you to select a contact and send a toast message for the selected item.
+                    </p>
+                    <p style="font-size: small">
+                        <a class="btn btn-default btn-lg" id="gContactPicker">Launch Contact Picker</a><br />
+                        <a class="btn btn-defaultx btn-lg page-scroll" href="#page-top">Top</a>
+
+                    </p>
+                </div>
+            </div>
+        </section>     
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container text-center">
+            <p>Copyright &copy; Patrick Oliveros</p>
+        </div>
+    </footer>
+
+    <div class="notification"></div>
+
+    <!-- jQuery -->
+    <script src="vendor/jquery/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+
+    <!-- Theme JavaScript -->
+    <script src="Scripts/grayscale.min.js"></script>
+
+    <!--Script references. -->
+    <!--Reference the SignalR library. -->
+    <script src="/Scripts/jquery.signalR-2.2.0.min.js"></script>
+    <!--Reference the autogenerated SignalR hub script. -->
+    <script src="/signalr/hubs"></script>
+
+    <!-- Application JS -->
+    <script src="Scripts/uwp.core.js"></script>
+    <script src="Scripts/uwp.web.js"></script>
+    <script src="Scripts/uwp.winapi.js"></script>
+    <script src="Scripts/uwp.xml.js"></script>
+
+    <!-- WinJS Scripts-->
+    <script src="/WinJS/js/base.min.js"></script>
+    <script src="/WinJS/js/ui.min.js"></script>
+</body>
+
+</html>

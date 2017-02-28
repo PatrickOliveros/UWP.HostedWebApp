@@ -1,9 +1,10 @@
 ﻿using Microsoft.Owin;
 using Owin;
+using UWP.SignalR;
 
-[assembly: OwinStartup(typeof(SignalRDemo.Startup))]
+[assembly: OwinStartup(typeof(Startup))]
 
-namespace SignalRDemo
+namespace UWP.SignalR
 {
     public class Startup
     {
