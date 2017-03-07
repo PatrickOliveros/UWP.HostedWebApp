@@ -187,18 +187,20 @@
     <Content Include="Assets\Images\biouser.png" />
     <Content Include="Assets\Images\boy.png" />
     <Content Include="Assets\Images\docapproved.png" />
+    <Content Include="Assets\Images\doccheck.png" />
     <Content Include="Assets\Images\docrejected.png" />
     <Content Include="Assets\Images\docreview.png" />
-    <Content Include="Assets\Images\email.png" />
+    <Content Include="Assets\Images\imgemail.png" />
     <Content Include="Assets\Images\female.png" />
     <Content Include="Assets\Images\foodstore.png" />
     <Content Include="Assets\Images\girl.png" />
     <Content Include="Assets\Images\json.png" />
     <Content Include="Assets\Images\male.png" />
-    <Content Include="Assets\Images\phone.png" />
+    <Content Include="Assets\Images\imgphone.png" />
     <Content Include="Assets\Images\round_male.png" />
     <Content Include="Assets\Images\round_man.png" />
     <Content Include="Assets\Images\round_whois.png" />
+    <Content Include="Assets\Images\statusreply.png" />
     <Content Include="Assets\intro-bg.jpg" />
     <Content Include="Assets\Images\downloads-bgx.jpg" />
     <Content Include="Assets\Images\intro-bg.jpg" />
@@ -310,6 +312,7 @@
     <Content Include="less\variables.less">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\PublishProfiles\localhost.pubxml" />
     <None Include="Properties\PublishProfiles\uwpwestminster - Web Deploy.pubxml" />
     <Content Include="sass\grayscale.scss">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

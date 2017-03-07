@@ -20,13 +20,7 @@
         </uap:DefaultTile>
       </uap:VisualElements>
       <uap:ApplicationContentUriRules>
-        <uap:Rule Match="http://localhost:31234/HostedWebApp.html" Type="include" WindowsRuntimeAccess="all" />
-        <uap:Rule Match="http://127.0.0.1/" Type="include" WindowsRuntimeAccess="all" />
-        <uap:Rule Match="http://127.*.0.1/" Type="include" WindowsRuntimeAccess="all" />
-        <uap:Rule Match="http://uwpwestminster.azurewebsites.net/index.html" Type="include" WindowsRuntimeAccess="all" />
         <uap:Rule Match="http://localhost:31234/index.html" Type="include" WindowsRuntimeAccess="all" />
-        <uap:Rule Match="https://patrickweb.blob.core.windows.net/mycontainer" Type="include" WindowsRuntimeAccess="all" />
-        <uap:Rule Match="http://uwpwestminster.azurewebsites.net/Assets/Images/*" Type="include" WindowsRuntimeAccess="all" />
       </uap:ApplicationContentUriRules>
     </Application>
   </Applications>

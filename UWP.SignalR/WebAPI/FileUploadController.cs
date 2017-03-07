@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Http;
 
 namespace UWP.SignalR.WebAPI
@@ -9,19 +10,15 @@ namespace UWP.SignalR.WebAPI
         [HttpPost]
         public void UploadFiles()
         {
-            var uploadPath = System.Web.Hosting.HostingEnvironment.MapPath("~/Content/Uploaded/");
+            var uploadPath = HostingEnvironment.MapPath("~/Content/Uploaded/");
 
-            HttpFileCollection hfc = System.Web.HttpContext.Current.Request.Files;
+            var hfc = HttpContext.Current.Request.Files;
 
-            HttpPostedFile hpf = hfc[0];
+            var hpf = hfc[0];
 
             if (hpf.ContentLength > 0)
-            {
                 if (!File.Exists($"{uploadPath}{Path.GetFileName(hpf.FileName)}"))
-                {
                     hpf.SaveAs($"{uploadPath}{Path.GetFileName(hpf.FileName)}");
-                }
-            }
         }
 
         [HttpGet]

@@ -19,7 +19,7 @@ namespace UWP.SignalR.Classes
     {
         public static List<KeyValuePair<string, string>> ConnectedUsers = new List<KeyValuePair<string, string>>();
     }
-    
+
     [HubName("signalrwin10")]
     public class applicationSignalRController : Hub
     {
@@ -27,18 +27,19 @@ namespace UWP.SignalR.Classes
 
         private void UpdateUserList()
         {
-            Clients.All.broadcastMessage("User Update", getCurrentUserCount()); 
+            Clients.All.broadcastMessage("User Update", getCurrentUserCount());
         }
 
-        public void setCurrentUser(string clientUser) {
-            connectedUser = (string.IsNullOrWhiteSpace(clientUser)) ? getCurrentUser() : clientUser;
+        public void setCurrentUser(string clientUser)
+        {
+            connectedUser = string.IsNullOrWhiteSpace(clientUser) ? getCurrentUser() : clientUser.ToLower();
 
             // Allow duplicates as the same user might have connected to another device or window.
             UserHandler.ConnectedUsers.Add(new KeyValuePair<string, string>(Context.ConnectionId, connectedUser));
 
-            int existingConnections = 0;
+            var existingConnections = 0;
 
-            if (CheckUserExists(connectedUser, out existingConnections) && existingConnections > 1)
+            if (CheckUserExists(connectedUser, out existingConnections) && (existingConnections > 1))
             {
                 Clients.Caller.joinExistingConnections(existingConnections);
             }
@@ -52,7 +53,7 @@ namespace UWP.SignalR.Classes
 
         public void broadcastAllToasts()
         {
-            HttpClient cons = new HttpClient {BaseAddress = new Uri(GetApplicationPath())};
+            var cons = new HttpClient {BaseAddress = new Uri(GetApplicationPath())};
             cons.DefaultRequestHeaders.Accept.Clear();
             var objResult = string.Empty;
 
@@ -60,10 +61,10 @@ namespace UWP.SignalR.Classes
             // Santize results, probably due to forcing a synchronous result from the Web API call
             objResult = objResult.SanitizeString();
 
-            string[] itemResult = objResult.Split('|');
+            var itemResult = objResult.Split('|');
 
 
-            Clients.All.broadcastToasts( $"Request - {itemResult[0]}", itemResult[0], itemResult[1]);
+            Clients.All.broadcastToasts($"Request - {itemResult[0]}", itemResult[0], itemResult[1]);
         }
 
         private string ProcessRequest(HttpClient cons)
@@ -71,12 +72,10 @@ namespace UWP.SignalR.Classes
             var strResult = string.Empty;
             using (cons)
             {
-                HttpResponseMessage res = cons.GetAsync("api/DemoApplication/ApprovedRequest").Result;
+                var res = cons.GetAsync("api/DemoApplication/ApprovedRequest").Result;
                 res.EnsureSuccessStatusCode();
                 if (res.IsSuccessStatusCode)
-                {
                     strResult = res.Content.ReadAsStringAsync().Result;
-                }
             }
 
             return strResult;
@@ -130,9 +129,10 @@ namespace UWP.SignalR.Classes
             Clients.All.broadcastPhoto(photoUrl, userSharer);
         }
 
-        public void broadcastContactToast(string conSharer, string conName, string conInfo, string conType)
+        public void broadcastContactToast(string conSharer, string conName, string conData, string conInfo,
+            string conType)
         {
-            Clients.Others.broadcastContactInformation(conSharer, conName, conInfo, conType);
+            Clients.Others.broadcastContactInformation(conSharer, conName, conData, conInfo, conType);
         }
 
         public void broadcastDefaultToast()
@@ -147,8 +147,19 @@ namespace UWP.SignalR.Classes
 
         public void broadcastSelectionToast()
         {
-            Clients.All.broadcastSelection();
+            var cons = new HttpClient {BaseAddress = new Uri(GetApplicationPath())};
+            cons.DefaultRequestHeaders.Accept.Clear();
+            var objResult = string.Empty;
+
+            objResult = ProcessRequest(cons);
+            // Santize results, probably due to forcing a synchronous result from the Web API call
+            objResult = objResult.SanitizeString();
+
+            var itemResult = objResult.Split('|');
+
+            Clients.All.broadcastSelection(itemResult[0]);
         }
+
         public void broadcastSelectionJsonToast()
         {
             Clients.All.broadcastSelectionJson();
@@ -159,7 +170,13 @@ namespace UWP.SignalR.Classes
             Clients.All.broadcastPhotoT(userSharer);
         }
 
+        private string GetApplicationPath()
+        {
+            return $"{HttpContext.Current.Request.Url.Scheme}://{HttpContext.Current.Request.Url.Authority}/";
+        }
+
         #region Photo Handlers
+
         public void fileUpload(string localFilePath, string userName)
         {
             var objFile = new FileInfo(localFilePath);
@@ -170,9 +187,9 @@ namespace UWP.SignalR.Classes
 
             var apiPath = GetApplicationPath() + "api/FileUpload";
 
-            string fileName = Path.GetFileName(movedFile);
+            var fileName = Path.GetFileName(movedFile);
 
-            using (WebClient client = new WebClient())
+            using (var client = new WebClient())
             {
                 client.UploadFile(new Uri(apiPath), movedFile);
             }
@@ -186,21 +203,21 @@ namespace UWP.SignalR.Classes
 
             var uploadFilePath = localFilePath;
 
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(
+            var storageAccount = CloudStorageAccount.Parse(
                 CloudConfigurationManager.GetSetting("StorageConnectionString"));
 
             // Create the blob client.
-            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+            var blobClient = storageAccount.CreateCloudBlobClient();
 
             // Retrieve a reference to a container.
-            CloudBlobContainer container = blobClient.GetContainerReference("mycontainer");
+            var container = blobClient.GetContainerReference("mycontainer");
 
             // Create the container if it doesn't already exist.
             container.CreateIfNotExists();
             container.SetPermissions(
-                new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Blob });
+                new BlobContainerPermissions {PublicAccess = BlobContainerPublicAccessType.Blob});
 
-            CloudBlockBlob blockBlob = container.GetBlockBlobReference("myblob");
+            var blockBlob = container.GetBlockBlobReference("myblob");
 
             // Create or overwrite the "myblob" blob with contents from a local file.
             using (var fileStream = File.OpenRead(uploadFilePath))
@@ -210,9 +227,11 @@ namespace UWP.SignalR.Classes
 
             broadcastPhoto(blockBlob.Uri.AbsoluteUri, userName);
         }
+
         #endregion
 
         #region User/Connection Management
+
         public override Task OnConnected()
         {
             //CheckCookie("");
@@ -221,14 +240,12 @@ namespace UWP.SignalR.Classes
 
         private void CheckCookie(string userName)
         {
-            HttpCookie usrCookie = HttpContext.Current.Request.Cookies["currentUser"];
+            var usrCookie = HttpContext.Current.Request.Cookies["currentUser"];
 
-            if (usrCookie != null && usrCookie.Value != userName)
-            {
+            if ((usrCookie != null) && (usrCookie.Value != userName))
                 usrCookie = new HttpCookie("currentUser", userName);
-            }
 
-            if (usrCookie == null || usrCookie.Value == "")
+            if ((usrCookie == null) || (usrCookie.Value == ""))
             {
                 usrCookie = new HttpCookie("currentUser", userName);
 
@@ -238,7 +255,7 @@ namespace UWP.SignalR.Classes
 
         private List<KeyValuePair<string, string>> FindUserByName(string userName)
         {
-            return UserHandler.ConnectedUsers.FindAll(x => x.Value == userName);
+            return UserHandler.ConnectedUsers.FindAll(x => x.Value == userName.ToLowerInvariant());
         }
 
         public override Task OnDisconnected(bool isHandled)
@@ -246,7 +263,9 @@ namespace UWP.SignalR.Classes
             // Todo: If the user has multiple connections, do not call the update user list. 
 
             var disconnectedUser =
-                UserHandler.ConnectedUsers.FindAll(x => x.Key == Context.ConnectionId).Select(x => x.Value).SingleOrDefault();
+                UserHandler.ConnectedUsers.FindAll(x => x.Key == Context.ConnectionId)
+                    .Select(x => x.Value)
+                    .SingleOrDefault();
 
             UserHandler.ConnectedUsers.RemoveAll(x => x.Key == Context.ConnectionId);
 
@@ -266,22 +285,16 @@ namespace UWP.SignalR.Classes
 
         private string getCurrentUser()
         {
-            return WindowsIdentity.GetCurrent().Name;
+            return WindowsIdentity.GetCurrent().Name.ToLower();
         }
 
         private bool CheckUserExists(string userName, out int userConnections)
         {
             userConnections = FindUserByName(userName).Count();
 
-            return (userConnections > 0);
+            return userConnections > 0;
         }
 
         #endregion
-
-        private string GetApplicationPath()
-        {
-            return $"{HttpContext.Current.Request.Url.Scheme}://{HttpContext.Current.Request.Url.Authority}/";
-        }
     }
-
 }

@@ -1,5 +1,4 @@
-﻿
-namespace UWP.SignalR.WebAPI
+﻿namespace UWP.SignalR.WebAPI
 {
     public class Person
     {

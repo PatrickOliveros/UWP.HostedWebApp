@@ -5,13 +5,10 @@ namespace UWP.SignalR.Classes
 {
     public static class appUtilities
     {
-
         public static string CheckPlural(this string value, int objCount)
         {
             if (objCount > 1)
-            {
                 return $"{value}s";
-            }
 
             return value;
         }

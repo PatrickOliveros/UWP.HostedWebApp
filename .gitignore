@@ -45,4 +45,11 @@ Temporary Items
 packages
 /UWP.HostedWebApp/bin
 /UWP.SignalR/bin/debug
+/UWP.SignalR/bin/
+/UWP.SignalR/obj/
 /UWP.SignalR/Properties/PublishProfiles
+/UWP.HostedWebApp/bld/Debug
+/UWP.SignalR/Assets/Images/DECEPTION_ The Shocking Truth behind Leni and Jesse Robredo Part 1 _ www.collective.com.pdf
+/UWP.SignalR/bin/Content
+/UWP.SignalR/bin/packages.config
+/UWP.SignalR/bin/package.json

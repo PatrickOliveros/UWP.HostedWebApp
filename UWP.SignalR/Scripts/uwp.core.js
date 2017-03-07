@@ -12,13 +12,13 @@
 // -----------------------------------
 
 function isWindows10() {
-	try {
-		return (typeof Windows !== 'undefined' &&
-            typeof Windows.UI !== 'undefined' &&
-            typeof Windows.UI.Notifications !== 'undefined');
-	} catch (e) {
-		return false;
-	}
+    try {
+        return (typeof Windows !== "undefined" &&
+            typeof Windows.UI !== "undefined" &&
+            typeof Windows.UI.Notifications !== "undefined");
+    } catch (e) {
+        return false;
+    }
 }
 
 function displayAPIError(objToast) {
@@ -42,22 +42,22 @@ function getCustomMessages(messageType) {
 
     switch (messageType) {
 
-        case "0":
-            customMessage = "This request has been rejected. Please contact your manager.";
-            break;
-        case "1":
-            customMessage = "This request has been approved. See e-mail for confirmation.";
-            break;
-        case "2":
-            customMessage = "This request has under review. Contact approver for additional instructions in your e-mail.";
-            break;
-        case "3":
-            // default message - web notification
-            customMessage = "Web notification has been clicked";
-            break;
-        default:
-            customMessage = "This is a generic message";
-            break;
+    case "0":
+        customMessage = "This request has been rejected. Please contact your manager.";
+        break;
+    case "1":
+        customMessage = "This request has been approved. See e-mail for confirmation.";
+        break;
+    case "2":
+        customMessage = "This request has under review. Contact approver for additional instructions in your e-mail.";
+        break;
+    case "3":
+        // default message - web notification
+        customMessage = "Web notification has been clicked";
+        break;
+    default:
+        customMessage = "This is a generic message";
+        break;
     }
 
     return customMessage;
@@ -85,16 +85,23 @@ function notifyStatusBox(objmessage) {
 }
 
 function notifyToastStatusBox(toastName, objAction, objValue) {
-    $("#discussion").append("<li><b>" + toastName + "</b> toast was fired. Action selected is <b>'" + objAction + "'</b> and with value of <b>'"  + objValue + "'</b></li>");
+    $("#discussion")
+        .append("<li><b>" +
+            toastName +
+            "</b> toast was fired. Action selected is <b>'" +
+            objAction +
+            "'</b> and with value of <b>'" +
+            objValue +
+            "'</b></li>");
 }
 
 function gotoTopPage() {
-    $('#topnav').trigger("click");
+    $("#topnav").trigger("click");
 }
 
-String.prototype.capitalizeWord = function () {
+String.prototype.capitalizeWord = function() {
     return this.charAt(0).toUpperCase() + this.slice(1);
-}
+};
 
 
 // End - Helper Functions
@@ -109,11 +116,12 @@ var imgMale = "male.png";
 var imgFemale = "female.png";
 var bioUser = "biouser.png";
 var foodstore = "foodstore.png";
-var imgPhone = "phone.png";
-var imgMail = "email.png";
+var cphone = "imgphone.png";
+var cemail = "imgemail.png";
 var docApproved = "docapproved.png";
 var docRejected = "docrejected.png";
 var docReview = "docreview.png";
+var docCheck = "doccheck.png";
 var googleSearch = "http://www.google.com/?q=";
 
 
@@ -122,5 +130,3 @@ var googleSearch = "http://www.google.com/?q=";
 
 var relativeImagePath = "/Assets/Images/";
 var randomImageUrl = "https://unsplash.it/200/300/?random";
-
-

@@ -5,19 +5,27 @@ function getUserList() {
 
     var apiPath = getApiPath("DemoApplication");
 
-    var getJson = $.getJSON(apiPath, function (data) {
-        var myobj = JSON.parse(data);
+    var getJson = $.getJSON(apiPath,
+        function(data) {
+            var myobj = JSON.parse(data);
 
-        $.each(myobj, function (index, element) {
-            jsonOption += "<selection id='" + element.Id + "' content=' " + element.LastName + ", " + element.FirstName + "' />";
+            $.each(myobj,
+                function(index, element) {
+                    jsonOption += "<selection id='" +
+                        element.Id +
+                        "' content=' " +
+                        element.LastName +
+                        ", " +
+                        element.FirstName +
+                        "' />";
+                });
+
+            showCustomToastDropDownJson(jsonOption);
         });
-
-        showCustomToastDropDownJson(jsonOption);
-    });
 }
 
 function jsonDataXml(toastLabel, userText, toastObjId, lstUsers) {
-    var toastDocument = "<toast launch='developer-defined-string'>" +
+    var toastDocument = "<toast launch='selectionJsonToast'>" +
         "<visual>" +
         "<binding template='ToastGeneric'>" +
         "<text>" +
@@ -45,36 +53,45 @@ function jsonDataXml(toastLabel, userText, toastObjId, lstUsers) {
     return toastDocument;
 }
 
-function getCustomXml() {
-    return "<toast launch='developer-defined-string'>" +
-    "<visual>" +
-    "<binding template='ToastGeneric'>" +
-    "  <text>Spicy Heaven</text>" +
-    "  <text>When do you plan to come in tomorrow?</text>" +
-    "  <image></image>" +
-    "</binding>" +
-    "</visual>" +
-    "<actions>" +
-    "<input id='time' type='selection' defaultInput='1' >" +
-    "  <selection id='1' content='Breakfast' />" +
-    "  <selection id='2' content='Lunch' />" +
-    "  <selection id='3' content='Dinner' />" +
-    "</input>" +
-    "<action activationType='foreground' content='Reserve' arguments='selection-reserve' />" +
-    "<action activationType='foreground' content='Call Restaurant' arguments='selection-call' />" +
-    "</actions>" +
-    "</toast>";
+function getCustomXml(requestNumber) {
+    return "<toast launch='selectionToast'>" +
+        "<visual>" +
+        "<binding template='ToastGeneric'>" +
+        "  <text>Kaptan (Fictional Company)</text>" +
+        "  <text>Please act on the status of the request (" +
+        requestNumber +
+        ").</text>" +
+        "  <image></image>" +
+        "</binding>" +
+        "</visual>" +
+        "<actions>" +
+        "<input id='time' type='selection' defaultInput='1' >" +
+        "  <selection id='1' content='For Review' />" +
+        "  <selection id='2' content='Approve' />" +
+        "  <selection id='3' content='Reject' />" +
+        "</input>" +
+        "<action activationType='foreground' content='Send Reply' arguments='selection-reply' imageUri='" +
+        getImagePath("statusreply.png") +
+        "' />" +
+        "</actions>" +
+        "</toast>";
 }
 
 function photoToastXml(caller, imageUrl) {
-    return "<toast launch='developer-defined-string'>" +
+    return "<toast launch='photoToast'>" +
         "<visual>" +
         "<binding template='ToastGeneric'>" +
         "<text>Photo Share</text>" +
-        "<text>" + caller + " sent you a picture</text>" +
+        "<text>" +
+        caller +
+        " sent you a picture</text>" +
         "<text>See it in full size!</text>" +
-        "<image src='" + imageUrl + "' />" +
-        "<image placement='appLogoOverride' src='" + imageUrl + "' hint-crop='circle' />" +
+        "<image src='" +
+        imageUrl +
+        "' />" +
+        "<image placement='appLogoOverride' src='" +
+        imageUrl +
+        "' hint-crop='circle' />" +
         "</binding>" +
         "</visual>" +
         "</toast>";
